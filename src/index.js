@@ -2,7 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import {HelmetProvider} from 'react-helmet-async';
+import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import ErrorPage from './pages/commons/ErrorPage';
 import reportWebVitals from './reportWebVitals';
 
 import './i18n';
@@ -10,10 +12,14 @@ import './i18n';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <HelmetProvider>
-      <App />
-    </HelmetProvider>
-  </React.StrictMode>
+    <BrowserRouter>
+      <HelmetProvider>
+        <ErrorPage>
+          <App />
+        </ErrorPage>
+      </HelmetProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
 );
 
 // If you want to start measuring performance in your app, pass a function

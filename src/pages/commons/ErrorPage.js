@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import ErrorMessage from '../../components/commons/ErrorMessage';
 
 class ErrorPage extends Component {
   state = {
@@ -14,7 +15,7 @@ class ErrorPage extends Component {
   render() {
     const { children } = this.props;
 
-    return this.error ? <h1>에러</h1> : children;
+    return this.error ? <ErrorMessage error={this.error} /> : children;
   }
 }
 

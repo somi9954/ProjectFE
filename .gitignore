@@ -24,3 +24,4 @@ yarn-error.log*
 
 # Sonarlint plugin
 .idea/**/sonarlint/
+.idea/sonarlint/

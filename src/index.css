@@ -1,5 +1,5 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.min.css");
-* {box-sizing: border-box; font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; color: #000;}
+* {box-sizing: border-box; font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif; color: #000; outline: none; }
 html { font-size: 13px;}
 body { margin: 0;}
 
@@ -8,3 +8,10 @@ ul, ol { list-style: none; margin: 0; padding: 0; }
 dl, dt, dd , li { margin: 0; padding: 0; }
 
 main { background: #F0E1E1; }
+
+/* 공통 여백 */
+.mt5 {margin-top: 5px; }
+.mb5 {margin-bottom: 5px;}
+
+.mt10 {margin-top: 10px;}
+.mb10 {margin-bottom: 10px;}

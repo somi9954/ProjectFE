@@ -5,20 +5,24 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import ErrorPage from './pages/commons/ErrorPage';
-import reportWebVitals from './reportWebVitals';
 
+import { UserProvider } from './modules/user';
+
+import reportWebVitals from './reportWebVitals';
 import './i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
+    <UserProvider>
       <HelmetProvider>
-        <ErrorPage>
-          <App />
-        </ErrorPage>
+        <BrowserRouter>
+          <ErrorPage>
+            <App />
+          </ErrorPage>
+        </BrowserRouter>
       </HelmetProvider>
-    </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>,
 );
 

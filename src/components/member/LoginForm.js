@@ -1,6 +1,6 @@
 import { InputText } from '../commons/InputStyle';
 import { BigButton } from '../commons/ButtonStyle';
-import Message from '../commons/Message';
+//import Message from '../commons/Message';
 import React, { useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -8,6 +8,9 @@ import { Link } from 'react-router-dom';
 import { IoMdLock } from 'react-icons/io';
 import { IoKey } from 'react-icons/io5';
 import { FaUserPlus } from 'react-icons/fa';
+import loadable from '@loadable/component';
+
+const Message = loadable(() => import('../commons/Message'));
 
 const LoginText = styled(InputText)`
   display: block;

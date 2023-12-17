@@ -1,5 +1,6 @@
 import LoginForm from '../../components/member/LoginForm';
-const LoginContainer = () => {
+
+const LoginContainer = ({ setIsLogin, setUserInfo }) => {
   return (
     <>
       <LoginForm />

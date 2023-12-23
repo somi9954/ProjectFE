@@ -40,7 +40,7 @@ const OuterBox = styled.header`
   }
   .left {
     .logo {
-      width: 210px;
+      width: 240px;
       text-align: right;
     }
   }

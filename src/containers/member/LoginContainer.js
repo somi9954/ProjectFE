@@ -1,13 +1,17 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import cookies from 'react-cookies';
+import { useNavigate } from 'react-router-dom';
 import { produce } from 'immer';
 import LoginForm from '../../components/member/LoginForm';
+import { requestLogin, getUserInfo } from '../../api/member/Login';
 
 const LoginContainer = () => {
   const [errors, setErrors] = useState({});
   const [form, setForm] = useState({});
 
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const onSubmit = useCallback(
     (e) => {
@@ -37,6 +41,25 @@ const LoginContainer = () => {
       }
 
       // 로그인 처리
+      requestLogin(form)
+        .then((token) => {
+          // JWT 토큰을 쿠키에 저장
+          cookies.save('token', token, {
+            path: '/',
+          });
+          // 양식 초기화
+          setForm(() => {});
+          // 로그인 상태(isLogin -> true) , userInfo에 회원정보 업데이트
+          getUserInfo();
+
+          //페이지 이동
+          navigate('/', { replace: true });
+        })
+        .catch(() => {
+          setErrors(() => ({
+            global: t('Login_fail'),
+          }));
+        });
     },
     [form, t],
   );
@@ -59,4 +82,4 @@ const LoginContainer = () => {
   );
 };
 
-export default React.memo(LoginContainer);
+export default LoginContainer;

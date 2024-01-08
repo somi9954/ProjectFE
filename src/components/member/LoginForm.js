@@ -72,11 +72,13 @@ const LoginForm = ({ onSubmit, onChange, errors }) => {
         onChange={onChange}
       />
       {errors.password && <Message>{errors.password}</Message>}
-      {errors.global && <Message>{errors.global}</Message>}
 
       <BigButton type="submit" size="medium" className="mt5">
         {t('로그인')}
       </BigButton>
+
+      {errors.global && <Message>{errors.global}</Message>}
+
       <div className="links">
         <Link to="/find_id">
           <IoMdLock /> {t('아이디 찾기')}

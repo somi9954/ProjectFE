@@ -43,7 +43,7 @@ const FormBox = styled.form`
   }
 `;
 
-const LoginForm = ({ onSubmit, errors }) => {
+const LoginForm = ({ onSubmit, onChange, errors }) => {
   const { t } = useTranslation();
 
   errors = errors || {};
@@ -58,17 +58,22 @@ const LoginForm = ({ onSubmit, errors }) => {
     <FormBox onSubmit={onSubmit}>
       <LoginText
         type="text"
-        name="name"
+        name="email"
         placeholder={t('이메일')}
         ref={refEmail}
+        onChange={onChange}
       />
-      {errors.email && errors.email.message && (
-        <Message>{errors.email.message}</Message>
-      )}
-      <LoginText type="password" name="password" placeholder={t('비밀번호')} />
-      {errors.password && errors.password.message && (
-        <Message>{errors.password.message}</Message>
-      )}
+      {errors.email && <Message>{errors.email}</Message>}
+
+      <LoginText
+        type="password"
+        name="password"
+        placeholder={t('비밀번호')}
+        onChange={onChange}
+      />
+      {errors.password && <Message>{errors.password}</Message>}
+      {errors.global && <Message>{errors.global}</Message>}
+
       <BigButton type="submit" size="medium" className="mt5">
         {t('로그인')}
       </BigButton>
@@ -83,10 +88,6 @@ const LoginForm = ({ onSubmit, errors }) => {
           <FaUserPlus /> {t('회원가입')}
         </Link>
       </div>
-
-      {errors.global && errors.global.message && (
-        <Message>{errors.global.message}</Message>
-      )}
     </FormBox>
   );
 };

@@ -58,10 +58,11 @@ const JoinContainer = () => {
           setForm(() => {}); // 양식 초기화
 
           // 로그인 페이지 이동
+          navigete('/login', { replace: true });
         })
         .catch((err) => setErrors(() => err.message));
     },
-    [form, t],
+    [form, t, navigete],
   );
 
   const onChange = useCallback((e) => {

@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import cookies from 'react-cookies';
 import { useNavigate } from 'react-router-dom';
 import { produce } from 'immer';
 import LoginForm from '../../components/member/LoginForm';
-import { requestLogin, getUserInfo } from '../../api/member/Login';
+import { requestLogin } from '../../api/member/Login';
+import UserContext from '../../modules/user';
 
 const LoginContainer = () => {
   const [errors, setErrors] = useState({});
@@ -12,6 +13,10 @@ const LoginContainer = () => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const {
+    action: { updateUserInfo },
+  } = useContext(UserContext);
 
   const onSubmit = useCallback(
     (e) => {
@@ -50,7 +55,7 @@ const LoginContainer = () => {
           // 양식 초기화
           setForm(() => {});
           // 로그인 상태(isLogin -> true) , userInfo에 회원정보 업데이트
-          getUserInfo();
+          updateUserInfo();
 
           //페이지 이동
           navigate('/', { replace: true });
@@ -61,7 +66,8 @@ const LoginContainer = () => {
           }));
         });
     },
-    [form, t],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [form],
   );
 
   const onChange = useCallback((e) => {

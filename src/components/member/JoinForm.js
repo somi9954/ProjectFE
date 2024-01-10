@@ -71,7 +71,7 @@ const JoinForm = ({ onSubmit, onChange, onToggle, form, errors }) => {
           <InputText
             type="text"
             name="email"
-            value={form.email}
+            value={form.email || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="email" />
@@ -83,7 +83,7 @@ const JoinForm = ({ onSubmit, onChange, onToggle, form, errors }) => {
           <InputText
             type="password"
             name="password"
-            value={form.password}
+            value={form.password || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="password" />
@@ -95,7 +95,7 @@ const JoinForm = ({ onSubmit, onChange, onToggle, form, errors }) => {
           <InputText
             type="password"
             name="confirmPassword"
-            value={form.confirmPassword}
+            value={form.confirmPassword || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="confirmPassword" />
@@ -107,7 +107,7 @@ const JoinForm = ({ onSubmit, onChange, onToggle, form, errors }) => {
           <InputText
             type="text"
             name="name"
-            value={form.name}
+            value={form.name || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="name" />
@@ -119,7 +119,7 @@ const JoinForm = ({ onSubmit, onChange, onToggle, form, errors }) => {
           <InputText
             type="text"
             name="mobile"
-            value={form.mobile}
+            value={form.mobile || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="mobile" />

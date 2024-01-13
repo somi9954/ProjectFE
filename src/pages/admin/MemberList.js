@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { MainTitle } from '../../components/commons/TitleStyle';
 import { OuterBox } from '../../components/commons/OutlineStyle';
-import SiteContainer from '../../containers/admin/SiteContainer';
+import MemberListContainer from '../../containers/admin/MemberListContainer';
 
 const Config = () => {
   const { t } = useTranslation();
@@ -11,11 +11,11 @@ const Config = () => {
   return (
     <>
       <Helmet>
-        <title>{t('사이트 설정')}</title>
+        <title>{t('회원 관리')}</title>
       </Helmet>
       <OuterBox>
-        <MainTitle>{t('사이트 설정')}</MainTitle>
-        <SiteContainer />
+        <MainTitle>{t('회원 관리')}</MainTitle>
+        <MemberListContainer />
       </OuterBox>
     </>
   );

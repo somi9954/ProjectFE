@@ -15,6 +15,7 @@ import Mypage from './pages/front/member/Mypage';
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
 import AdminConfig from './pages/admin/Config';
+import MemberList from './pages/admin/MemberList';
 
 const App = () => {
   const {
@@ -37,6 +38,7 @@ const App = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminMain />} />
         <Route path="config" element={<AdminConfig />} />
+        <Route path="member" element={<MemberList />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

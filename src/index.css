@@ -112,9 +112,10 @@ main {
   padding: 30px 25px;
   font-size: 1.35rem;
   text-align: center;
+
 }
 .admin_page > aside a.on {
-  background: #F56F67;
+  background: #DE4A47;
   font-weight: bold;
   position: relative;
 }
@@ -126,5 +127,11 @@ main {
   position: absolute;
   right: 0;
   top: 0;
-  background: #FA0695;
+  background: #A247DE;
+}
+
+svg.icons {
+  position: absolute;
+  left: 40px;
+  text-align: center;
 }

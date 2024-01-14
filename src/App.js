@@ -11,11 +11,11 @@ import Login from './pages/front/member/Login';
 import Join from './pages/front/member/Join';
 import Logout from './pages/front/member/Logout';
 import Mypage from './pages/front/member/Mypage';
+import Diary from './pages/front/member/Diary';
 
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
 import AdminConfig from './pages/admin/Config';
-import MemberList from './pages/admin/MemberList';
 
 const App = () => {
   const {
@@ -32,13 +32,13 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/mypage" element={<Mypage />} />
+        <Route path="/diray" element={<Diary />} />
       </Route>
 
       {/* 관리자 페이지 */}
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminMain />} />
         <Route path="config" element={<AdminConfig />} />
-        <Route path="member" element={<MemberList />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

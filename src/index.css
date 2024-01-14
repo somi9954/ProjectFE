@@ -135,3 +135,13 @@ svg.icons {
   left: 40px;
   text-align: center;
 }
+
+button.celebt {
+  background: #FACFD2;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  float: right;
+  padding: 6px;
+  margin: 0 auto;
+}

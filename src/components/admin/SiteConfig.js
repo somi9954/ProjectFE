@@ -8,7 +8,7 @@ import sizeNames from '../../styles/sizes';
 
 const ErrorMessages = loadable(() => import('../commons/ErrorMessages'));
 
-const { small, medium } = sizeNames;
+const { medium } = sizeNames;
 
 const FormBox = styled.form`
   dl {
@@ -64,6 +64,7 @@ const SiteConfig = ({ onSubmit, onChange, form, errors }) => {
               name="siteTitle"
               value={form.siteTitle || ''}
               onChange={onChange}
+              placeholder="사이트 제목을 입력해주세요."
             />
             <ErrorMessages errors={errors} field="siteTitle" />
           </dd>
@@ -76,6 +77,7 @@ const SiteConfig = ({ onSubmit, onChange, form, errors }) => {
               name="siteDescription"
               value={form.siteDescription || ''}
               onChange={onChange}
+              placeholder="사이트 설명을 입력해주세요."
             />
             <ErrorMessages errors={errors} field="siteDescription" />
           </dd>
@@ -99,6 +101,7 @@ const SiteConfig = ({ onSubmit, onChange, form, errors }) => {
               name="joinTerms"
               value={form.joinTerms || ''}
               onChange={onChange}
+              placeholder="회원 가입 약관을 입력해주세요."
             />
             <ErrorMessages errors={errors} field="joinTerms" />
           </dd>

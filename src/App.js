@@ -11,7 +11,6 @@ import Login from './pages/front/member/Login';
 import Join from './pages/front/member/Join';
 import Logout from './pages/front/member/Logout';
 import Mypage from './pages/front/member/Mypage';
-import Diary from './pages/front/member/Diary';
 
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
@@ -32,7 +31,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/mypage" element={<Mypage />} />
-        <Route path="/diray" element={<Diary />} />
       </Route>
 
       {/* 관리자 페이지 */}

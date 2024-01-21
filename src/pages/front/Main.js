@@ -1,21 +1,15 @@
-import LoginContainer from '../../containers/member/LoginContainer';
 import UserContext from '../../modules/user';
 import { useContext } from 'react';
-import Login from './member/Login';
-import Diary from './member/Diary';
+import Footer from '../../outlines/front/Footer';
 
 const Main = () => {
   const {
-    state: { isLogin, userInfo },
+    state: { isLogin },
   } = useContext(UserContext);
 
-  return isLogin ? (
-    <Diary />
-  ) : (
+  return (
     <>
-      <Login>
-        <LoginContainer />
-      </Login>
+      <h1>메인페이지</h1>
     </>
   );
 };

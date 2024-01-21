@@ -114,7 +114,7 @@ const SiteConfig = ({ onSubmit, onChange, form, errors }) => {
             height="50px"
             size="medium"
           >
-            {t('가입하기')}
+            {t('작성하기')}
           </BigButton>
           <BigButton
             type="reset"

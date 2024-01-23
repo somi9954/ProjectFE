@@ -35,3 +35,14 @@ export const getUserInfo = () =>
         reject(err);
       });
   });
+
+/* 회원 정보 삭제 */
+export function deleteUserData() {
+  return new Promise((resolve, reject) => {
+    apiRequest('/mypage/member/deleteUserData', 'POST')
+      .then(() => {
+        resolve(true);
+      })
+      .catch((error) => reject(error));
+  });
+}

@@ -36,7 +36,7 @@ const FormBox = styled.form`
   }
 `;
 
-const Withdrawal = ({ onSubmit, onChange, onToggle, form, errors }) => {
+const Withdrawal = ({ onSubmit, onChange, form, errors }) => {
   const { t } = useTranslation();
   return (
     <FormBox onSubmit={onSubmit}>

@@ -37,7 +37,7 @@ const FormBox = styled.form`
   }
 `;
 
-const SaveInfo = ({ onSubmit, onChange, onToggle, form, errors }) => {
+const SaveInfo = ({ onSubmit, onChange, form, errors }) => {
   const { t } = useTranslation();
   const { state } = useContext(UserContext);
   return (

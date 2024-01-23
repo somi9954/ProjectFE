@@ -13,6 +13,7 @@ import Logout from './pages/front/member/Logout';
 import MypageLayout from './layouts/front/MypageLayout';
 import Mypage from './pages/front/member/Main';
 import SaveInfo from './pages/front/member/Saveinfo';
+import Withdrawal from './pages/front/member/Withdrawal';
 
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
@@ -36,6 +37,7 @@ const App = () => {
       <Route path="/mypage" element={<MypageLayout />}>
         <Route index element={<Mypage />} />
         <Route path="member/saveinfo" element={<SaveInfo />} />
+        <Route path="member/Withdrawal" element={<Withdrawal />} />
       </Route>
 
       {/* 관리자 페이지 */}

@@ -18,7 +18,7 @@ const SideMenu = () => {
         {t('개인정보수정')}
       </NavLink>
       <NavLink
-        to="mypage/member/Withdrawal"
+        to="member/Withdrawal"
         className={({ isActive }) => classNames({ on: isActive })}
       >
         <FaUsersSlash className="icons" />

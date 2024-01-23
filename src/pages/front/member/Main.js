@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { OuterBox } from '../../../components/commons/OutlineStyle';
 import { MainTitle } from '../../../components/commons/TitleStyle';
 import { BigButton } from '../../../components/commons/ButtonStyle';
+import User from '../../../images/user.png';
 
 import { NavLink } from 'react-router-dom';
 
@@ -37,6 +38,11 @@ const UserInfo = styled.dl`
   dl:last-of-type {
     margin-bottom: 15px;
   }
+  .user {
+    margin: 0 auto;
+    display: block;
+    width: 150px;
+  }
 `;
 
 const Main = () => {
@@ -51,6 +57,7 @@ const Main = () => {
       <OuterBox>
         <MainTitle>{t('마이페이지')}</MainTitle>
         <UserInfo>
+          <img src={User} className="user" alt="user" />
           <dl>
             <dt>{t('아이디')}</dt>
             <dd>

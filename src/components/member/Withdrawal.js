@@ -1,11 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { InputText } from '../commons/InputStyle';
-import { ButtonGroup, BigButton } from '../commons/ButtonStyle';
+import { BigButton } from '../commons/ButtonStyle';
 import sizeNames from '../../styles/sizes';
 import styled from 'styled-components';
 import loadable from '@loadable/component';
-import React, { useContext } from 'react';
-import UserContext from '../../modules/user';
+import React from 'react';
 
 const ErrorMessages = loadable(() => import('../commons/ErrorMessages'));
 
@@ -37,9 +36,8 @@ const FormBox = styled.form`
   }
 `;
 
-const SaveInfo = ({ onSubmit, onChange, onToggle, form, errors }) => {
+const Withdrawal = ({ onSubmit, onChange, onToggle, form, errors }) => {
   const { t } = useTranslation();
-  const { state } = useContext(UserContext);
   return (
     <FormBox onSubmit={onSubmit}>
       <dl>
@@ -48,7 +46,7 @@ const SaveInfo = ({ onSubmit, onChange, onToggle, form, errors }) => {
           <InputText
             type="text"
             name="email"
-            defaultValue={state.userInfo.email || ''}
+            value={form.email || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="email" />
@@ -67,64 +65,28 @@ const SaveInfo = ({ onSubmit, onChange, onToggle, form, errors }) => {
         </dd>
       </dl>
       <dl>
-        <dt>{t('비밀번호확인')}</dt>
-        <dd>
-          <InputText
-            type="password"
-            name="confirmPassword"
-            value={form.confirmPassword || ''}
-            onChange={onChange}
-          />
-          <ErrorMessages errors={errors} field="confirmPassword" />
-        </dd>
-      </dl>
-      <dl>
         <dt>{t('회원명')}</dt>
         <dd>
           <InputText
             type="text"
             name="name"
-            defaultValue={state.userInfo.name || ''}
+            value={form.name || ''}
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="name" />
         </dd>
       </dl>
-      <dl>
-        <dt>{t('휴대전화번호')}</dt>
-        <dd>
-          <InputText
-            type="text"
-            name="mobile"
-            defaultValue={state.userInfo.mobile || ''}
-            onChange={onChange}
-          />
-          <ErrorMessages errors={errors} field="mobile" />
-        </dd>
-      </dl>
-      <ButtonGroup>
-        <BigButton
-          type="submit"
-          color="info"
-          bcolor="info"
-          height="50px"
-          size="medium"
-        >
-          {t('수정하기')}
-        </BigButton>
-        <BigButton
-          type="reset"
-          color="white"
-          bcolor="info"
-          height="50px"
-          size="medium"
-          fcolor="info"
-        >
-          {t('다시입력')}
-        </BigButton>
-      </ButtonGroup>
+      <BigButton
+        type="submit"
+        color="info"
+        bcolor="info"
+        height="50px"
+        size="medium"
+      >
+        {t('탈퇴하기')}
+      </BigButton>
     </FormBox>
   );
 };
 
-export default React.memo(SaveInfo);
+export default React.memo(Withdrawal);

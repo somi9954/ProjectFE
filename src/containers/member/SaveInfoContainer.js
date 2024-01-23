@@ -2,16 +2,15 @@ import React, { useState, useCallback } from 'react';
 import { produce } from 'immer';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import SiteConfig from '../../components/admin/SiteConfig';
-import requestConfig from '../../api/admin/config';
+
+import requestSave from '../../api/member/Mypage';
+import SaveInfo from '../../components/member/SaveInfo';
 
 const SiteContainer = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    cssJsVersion: 1,
-  });
+  const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
   const onSubmit = useCallback(
@@ -20,9 +19,8 @@ const SiteContainer = () => {
 
       // 필수 항목
       const requiredFields = {
-        siteTitle: t('NotBlank_siteTitle'),
-        siteDescription: t('NotBlank_siteDescription'),
-        joinTerms: t('NotBlank_joinTerms'),
+        password: t('NotBlank_password'),
+        confirmPassword: t('NotBlank_confirmPassword'),
       };
       const _errors = {};
       let hasError = false; // 검증 실패 여부
@@ -40,13 +38,13 @@ const SiteContainer = () => {
 
         return;
       }
-      requestConfig(form)
+      requestSave(form)
         .then(() => {
           // 사이트 설정 완료시
           setForm(() => {}); // 양식 초기화
 
-          // 관리자 페이지 이동
-          navigate('/admin', { replace: true });
+          // 마이 페이지 이동
+          navigate('/mypage', { replace: true });
         })
         .catch((err) => setErrors(() => err.message));
     },
@@ -63,7 +61,7 @@ const SiteContainer = () => {
   }, []);
 
   return (
-    <SiteConfig
+    <SaveInfo
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}

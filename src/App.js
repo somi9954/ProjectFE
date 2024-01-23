@@ -10,7 +10,9 @@ import Main from './pages/front/Main';
 import Login from './pages/front/member/Login';
 import Join from './pages/front/member/Join';
 import Logout from './pages/front/member/Logout';
-import Mypage from './pages/front/member/Mypage';
+import MypageLayout from './layouts/front/MypageLayout';
+import Mypage from './pages/front/member/Main';
+import SaveInfo from './pages/front/member/Saveinfo';
 
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
@@ -30,7 +32,10 @@ const App = () => {
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/mypage" element={<Mypage />} />
+      </Route>
+      <Route path="/mypage" element={<MypageLayout />}>
+        <Route index element={<Mypage />} />
+        <Route path="member/saveinfo" element={<SaveInfo />} />
       </Route>
 
       {/* 관리자 페이지 */}

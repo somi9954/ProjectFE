@@ -99,7 +99,7 @@ main {
 }
 .admin_page > aside {
   width: 200px;
-  background: #F09A97;
+  background: #f09a97;
   min-height: 850px;
 }
 .admin_page > section {
@@ -112,10 +112,9 @@ main {
   padding: 30px 25px;
   font-size: 1.35rem;
   text-align: center;
-
 }
 .admin_page > aside a.on {
-  background: #DE4A47;
+  background: #de4a47;
   font-weight: bold;
   position: relative;
 }
@@ -127,7 +126,7 @@ main {
   position: absolute;
   right: 0;
   top: 0;
-  background: #A247DE;
+  background: #a247de;
 }
 
 svg.icons {
@@ -137,7 +136,53 @@ svg.icons {
 }
 
 button.celebt {
-  background: #FACFD2;
+  background: #facfd2;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  float: right;
+  padding: 6px;
+  margin: 0 auto;
+}
+
+/* 마이페이지 공통 */
+.mypage {
+  display: flex;
+}
+.mypage > aside {
+  width: 200px;
+  background: #f09a97;
+  min-height: 850px;
+}
+.mypage > section {
+  flex-grow: 1;
+  padding: 0 50px 50px;
+}
+
+.mypage > aside a {
+  display: block;
+  padding: 30px 25px;
+  font-size: 1.35rem;
+  text-align: center;
+}
+.mypage > aside a.on {
+  background: #de4a47;
+  font-weight: bold;
+  position: relative;
+}
+.mypage > aside a.on:after {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #a247de;
+}
+
+  button.celebt {
+  background: #facfd2;
   border: none;
   border-radius: 5px;
   font-size: 15px;

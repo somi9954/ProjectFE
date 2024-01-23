@@ -1,6 +1,5 @@
 import UserContext from '../../modules/user';
 import { useContext } from 'react';
-import Footer from '../../outlines/front/Footer';
 
 const Main = () => {
   const {

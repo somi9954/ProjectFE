@@ -34,6 +34,11 @@ const FormBox = styled.form`
   dl:last-of-type {
     margin-bottom: 15px;
   }
+
+  button {
+    margin: 0 auto;
+    display: block;
+  }
 `;
 
 const Withdrawal = ({ onSubmit, onChange, form, errors }) => {
@@ -82,6 +87,7 @@ const Withdrawal = ({ onSubmit, onChange, form, errors }) => {
         bcolor="info"
         height="50px"
         size="medium"
+        style={{ width: '200px' }}
       >
         {t('탈퇴하기')}
       </BigButton>

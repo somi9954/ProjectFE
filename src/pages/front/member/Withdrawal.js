@@ -4,7 +4,7 @@ import { MainTitle } from '../../../components/commons/TitleStyle';
 import { OuterBox } from '../../../components/commons/OutlineStyle';
 import WithdrawalContainer from '../../../containers/member/WithdrawalContainer';
 
-const SaveInfo = () => {
+const Withdrawal = () => {
   const { t } = useTranslation();
   return (
     <>
@@ -19,4 +19,4 @@ const SaveInfo = () => {
   );
 };
 
-export default SaveInfo;
+export default Withdrawal;

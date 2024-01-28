@@ -14,10 +14,12 @@ import MypageLayout from './layouts/front/MypageLayout';
 import Mypage from './pages/front/member/Main';
 import SaveInfo from './pages/front/member/Saveinfo';
 import Withdrawal from './pages/front/member/Withdrawal';
+import TodoWrite from './pages/front/member/TodoWrite';
 
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
 import AdminConfig from './pages/admin/Config';
+import MemberList from './pages/admin/MemberList';
 
 const App = () => {
   const {
@@ -33,6 +35,7 @@ const App = () => {
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/todo/write" element={<TodoWrite />} />
       </Route>
       <Route path="/mypage" element={<MypageLayout />}>
         <Route index element={<Mypage />} />
@@ -44,6 +47,7 @@ const App = () => {
       <Route path="/admin" element={<AdminLayout />}>
         <Route index element={<AdminMain />} />
         <Route path="config" element={<AdminConfig />} />
+        <Route path="memberlist" element={<MemberList />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

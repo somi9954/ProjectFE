@@ -36,6 +36,40 @@ export const getUserInfo = () =>
       });
   });
 
+/** 로그인 회원 정보 조회 후 리스트 조회 */
+export const getMemberList = () =>
+  new Promise((resolve, reject) => {
+    apiRequest('/member/info')
+      .then((res) => {
+        if (res.data.success) {
+          const userData = res.data.data;
+          console.log(userData);
+          apiRequest('/member/memberlist', 'GET', { email: userData.email })
+            .then((listRes) => {
+              if (listRes.data.success) {
+                userData.listData = listRes.data.data;
+                resolve(userData);
+              } else {
+                console.error('Failed to get member list:', listRes.data);
+                reject(listRes.data);
+              }
+            })
+            .catch((listErr) => {
+              console.error('Error while getting member list:', listErr);
+              reject(listErr);
+            });
+        } else {
+          console.error('Failed to get user info:', res.data);
+          reject(res.data);
+        }
+      })
+      .catch((err) => {
+        cookies.remove('token');
+        console.error('Error while getting user info:', err);
+        reject(err);
+      });
+  });
+
 /* 회원 정보 삭제 */
 export function deleteUserData() {
   return new Promise((resolve, reject) => {

@@ -8,6 +8,7 @@ const validation = {
   NotBlank_siteTitle: '사이트 설정 제목을 입력하세요.',
   NotBlank_siteDescription: '사이트 설정 설명을 입력하세요.',
   NotBlank_joinTerms: '회원 가입 약관을 입력하세요.',
+  NotBlank_userSearch: '검색어를 입력하세요.',
 };
 
 export default validation;

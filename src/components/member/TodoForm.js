@@ -9,7 +9,7 @@ import { Textarea } from '../commons/Textarea';
 
 const ErrorMessages = loadable(() => import('../commons/ErrorMessages'));
 
-const { small, medium, big } = sizeNames;
+const { medium } = sizeNames;
 
 const FormBox = styled.form`
   dl {
@@ -53,17 +53,6 @@ const TodoForm = ({ onSubmit, onChange, form, errors }) => {
             onChange={onChange}
           />
           <ErrorMessages errors={errors} field="subject" />
-        </dd>
-      </dl>
-      <dl>
-        <dt>{t('작성자')}</dt>
-        <dd>
-          <InputText
-            type="text"
-            name="poster"
-            value={form.poster || ''}
-            onChange={onChange}
-          />
         </dd>
       </dl>
       <dl>

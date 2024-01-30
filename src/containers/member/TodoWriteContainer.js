@@ -48,7 +48,7 @@ const TodoWriteContainer = () => {
           setForm(() => {}); // 양식 초기화
 
           // 보기 페이지로 이동
-          navigate('/todo/view/${seq}', { replace: true });
+          navigate('/todo/list', { replace: true });
         })
         .catch((err) => setErrors(() => err.message));
     },

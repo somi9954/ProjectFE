@@ -15,7 +15,9 @@ const CommonLayout = () => {
     <>
       <Header />
       <main className={mainClass}>
-        <Outlet />
+        <section>
+          <Outlet />
+        </section>
       </main>
       <Footer />
     </>

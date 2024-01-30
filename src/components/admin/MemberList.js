@@ -113,15 +113,15 @@ const MemberList = ({ onSubmit, form, errors, onToggle, userData }) => {
         </dd>
       </dl>
       <dl className="table-cols">
-        <dt>{t('사용 여부')}</dt>
+        <dt>{t('사용자 유형')}</dt>
         <dd className="active_true" onClick={onToggle('use')}>
           {form.use ? <GrCheckboxSelected /> : <GrCheckbox />}
-          {t('사용')}
+          {t('ADMIN')}
         </dd>
 
         <dd className="active_true" onClick={onToggle('unused')}>
           {form.unused ? <GrCheckboxSelected /> : <GrCheckbox />}
-          {t('미사용')}
+          {t('USER')}
         </dd>
       </dl>
       <BigButton

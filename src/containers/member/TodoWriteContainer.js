@@ -9,7 +9,7 @@ const TodoWriteContainer = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({ subject: '', content: '' });
   const [errors, setErrors] = useState({});
 
   const onSubmit = useCallback(
@@ -55,6 +55,15 @@ const TodoWriteContainer = () => {
     [form, t, navigate],
   );
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setForm(
+      produce((draft) => {
+        draft[name] = value;
+      }),
+    );
+  };
+
   const onChange = useCallback((e) => {
     const target = e.currentTarget;
     setForm(
@@ -70,6 +79,7 @@ const TodoWriteContainer = () => {
       onChange={onChange}
       form={form}
       errors={errors}
+      handleInputChange={handleInputChange}
     />
   );
 };

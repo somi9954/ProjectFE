@@ -35,10 +35,9 @@ const FormBox = styled.form`
   dl:last-of-type {
     margin-bottom: 15px;
   }
-  }
 `;
 
-const TodoForm = ({ onSubmit, onChange, form, errors }) => {
+const TodoForm = ({ onSubmit, form, errors, handleInputChange }) => {
   const { t } = useTranslation();
 
   return (
@@ -49,8 +48,8 @@ const TodoForm = ({ onSubmit, onChange, form, errors }) => {
           <InputText
             type="text"
             name="subject"
-            value={form.subject || ''}
-            onChange={onChange}
+            defaultValue={(form && form.subject) || ''}
+            onChange={handleInputChange}
           />
           <ErrorMessages errors={errors} field="subject" />
         </dd>
@@ -60,8 +59,8 @@ const TodoForm = ({ onSubmit, onChange, form, errors }) => {
         <dd>
           <Textarea
             name="content"
-            value={form.content || ''}
-            onChange={onChange}
+            defaultValue={(form && form.content) || ''}
+            onChange={handleInputChange}
           />
           <ErrorMessages errors={errors} field="content" />
         </dd>

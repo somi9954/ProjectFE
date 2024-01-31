@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { PiPlusBold } from 'react-icons/pi';
 import sizeNames from '../../styles/sizes';
+import TodoForm from './TodoForm';
+import { AddTodoButton } from '../commons/ButtonStyle';
+import TodoWriteContainer from '../../containers/member/TodoWriteContainer';
 
 const { small, medium, big } = sizeNames;
 
@@ -55,13 +60,29 @@ const ListBox = styled.div`
     margin-left: 15px;
     font-size: ${medium};
   }
+
+  .todo {
+    color: #fff;
+    font-size: ${medium};
+  }
+
   svg {
     margin-left: 5px;
     font-size: ${medium};
   }
 `;
 
-const TodoList = ({ todoList, onToggle }) => {
+const TodoList = ({ todoList, onToggle, handleFormSubmit }) => {
+  const [showForm, setShowForm] = useState(false);
+
+  const handleAddTodo = () => {
+    setShowForm(true); // TodoForm을 보이도록 설정합니다.
+  };
+
+  const handleFormCancel = () => {
+    setShowForm(false); // TodoForm을 감춥니다.
+  };
+
   const getCurrentDate = () => {
     const today = new Date();
     const year = today.getFullYear();
@@ -84,20 +105,38 @@ const TodoList = ({ todoList, onToggle }) => {
     <ListBox>
       <div className="title">
         <h1>오늘의 할일</h1>
-        <p className="date">{getCurrentDate()}</p>
+        <p className="date">
+          <FaRegCalendarAlt />
+          {getCurrentDate()}
+        </p>
       </div>
-      <ul>
-        {sortedTodoList.map((todo) => (
-          <li
-            key={todo.gid}
-            onClick={() => onToggle(todo)}
-            className={todo.agree ? 'checked' : ''}
-          >
-            {todo.agree ? <GrCheckboxSelected /> : <GrCheckbox />}
-            <span className="content">{todo.content}</span>
-          </li>
-        ))}
-      </ul>
+      <div>
+        {/* TodoForm을 보여줄지 여부에 따라 조건부 렌더링합니다. */}
+        {showForm ? (
+          <TodoForm onSubmit={handleFormSubmit} onCancel={handleFormCancel} />
+        ) : (
+          <>
+            <AddTodoButton onClick={handleAddTodo}>
+              <PiPlusBold />
+              <p className="todo">할 일 추가하기</p>
+            </AddTodoButton>
+            <ul>
+              {/* 할일 목록을 순회하고 각 할일을 표시합니다. */}
+              {sortedTodoList.map((todo) => (
+                <li
+                  key={todo.gid}
+                  onClick={() => onToggle(todo)}
+                  className={todo.agree ? 'checked' : ''}
+                >
+                  {/* 완료된 할일인지 여부에 따라 아이콘을 표시합니다. */}
+                  {todo.done ? <GrCheckboxSelected /> : <GrCheckbox />}
+                  <span className="content">{todo.content}</span>
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </ListBox>
   );
 };

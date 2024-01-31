@@ -20,6 +20,21 @@ export const BigButton = styled.button`
   }
 `;
 
+export const AddTodoButton = styled.button`
+  background-color: #f09a97;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  height: 65px;
+  border: 1px solid #f09a97;
+  width: 100%;
+`;
+
 export const ButtonGroup = styled.div`
   width: ${({ width }) => width || 350}px;
   display: flex;

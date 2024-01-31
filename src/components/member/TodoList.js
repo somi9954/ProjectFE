@@ -4,11 +4,14 @@ import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { PiPlusBold } from 'react-icons/pi';
 import sizeNames from '../../styles/sizes';
-import TodoForm from './TodoForm';
 import { AddTodoButton } from '../commons/ButtonStyle';
-import TodoWriteContainer from '../../containers/member/TodoWriteContainer';
+import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
+import { InputText } from '../commons/InputStyle';
 
 const { small, medium, big } = sizeNames;
+
+const ErrorMessages = loadable(() => import('../commons/ErrorMessages'));
 
 const ListBox = styled.div`
   .title h1 {
@@ -70,18 +73,24 @@ const ListBox = styled.div`
     margin-left: 5px;
     font-size: ${medium};
   }
+  .plustodo {
+    display: flex;
+  }
+
+  .btn {
+    margin-left: 5px;
+  }
 `;
 
-const TodoList = ({ todoList, onToggle, handleFormSubmit }) => {
-  const [showForm, setShowForm] = useState(false);
-
-  const handleAddTodo = () => {
-    setShowForm(true); // TodoForm을 보이도록 설정합니다.
-  };
-
-  const handleFormCancel = () => {
-    setShowForm(false); // TodoForm을 감춥니다.
-  };
+const TodoList = ({
+  todoList,
+  handleFormSubmit,
+  errors,
+  handleInputChange,
+  form,
+  onToggle,
+}) => {
+  const { t } = useTranslation();
 
   const getCurrentDate = () => {
     const today = new Date();
@@ -91,13 +100,12 @@ const TodoList = ({ todoList, onToggle, handleFormSubmit }) => {
     return `${year}년 ${month}월 ${day}일`;
   };
 
-  console.log(todoList); // 데이터 확인
   if (!Array.isArray(todoList) || todoList.length === 0) {
     return <div>데이터가 없습니다</div>;
   }
 
   // 생성일을 기준으로 정렬
-  const sortedTodoList = todoList.sort(
+  const sortedTodoList = [...todoList].sort(
     (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
   );
 
@@ -111,31 +119,36 @@ const TodoList = ({ todoList, onToggle, handleFormSubmit }) => {
         </p>
       </div>
       <div>
-        {/* TodoForm을 보여줄지 여부에 따라 조건부 렌더링합니다. */}
-        {showForm ? (
-          <TodoForm onSubmit={handleFormSubmit} onCancel={handleFormCancel} />
-        ) : (
-          <>
-            <AddTodoButton onClick={handleAddTodo}>
-              <PiPlusBold />
-              <p className="todo">할 일 추가하기</p>
-            </AddTodoButton>
-            <ul>
-              {/* 할일 목록을 순회하고 각 할일을 표시합니다. */}
-              {sortedTodoList.map((todo) => (
-                <li
-                  key={todo.gid}
-                  onClick={() => onToggle(todo)}
-                  className={todo.agree ? 'checked' : ''}
-                >
-                  {/* 완료된 할일인지 여부에 따라 아이콘을 표시합니다. */}
-                  {todo.done ? <GrCheckboxSelected /> : <GrCheckbox />}
-                  <span className="content">{todo.content}</span>
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+        <div className="plustodo">
+          <dd>
+            <InputText
+              className="input"
+              name="content"
+              defaultValue={(form && form.content) || ''}
+              onChange={handleInputChange}
+            />
+            <ErrorMessages errors={errors} field="content" />
+          </dd>
+
+          <AddTodoButton onClick={handleFormSubmit} className="btn">
+            <PiPlusBold />
+            <p className="todo">할 일 추가하기</p>
+          </AddTodoButton>
+        </div>
+        <ul>
+          {/* 할일 목록을 순회하고 각 할일을 표시합니다. */}
+          {sortedTodoList.map((todo) => (
+            <li
+              key={todo.gid}
+              onClick={() => onToggle(todo)}
+              className={todo.done ? 'checked' : ''}
+            >
+              {/* 완료된 할일인지 여부에 따라 아이콘을 표시합니다. */}
+              {todo.done ? <GrCheckboxSelected /> : <GrCheckbox />}
+              <span className="content">{todo.content}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </ListBox>
   );

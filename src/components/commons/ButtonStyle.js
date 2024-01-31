@@ -30,9 +30,8 @@ export const AddTodoButton = styled.button`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
-  height: 65px;
+  height: 35px;
   border: 1px solid #f09a97;
-  width: 100%;
 `;
 
 export const ButtonGroup = styled.div`

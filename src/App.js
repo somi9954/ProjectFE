@@ -14,7 +14,6 @@ import MypageLayout from './layouts/front/MypageLayout';
 import Mypage from './pages/front/member/Main';
 import SaveInfo from './pages/front/member/Saveinfo';
 import Withdrawal from './pages/front/member/Withdrawal';
-import TodoWrite from './pages/front/member/TodoWrite';
 import TodoList from './pages/front/member/TodoList';
 
 /* 서버 페이지 */
@@ -36,7 +35,6 @@ const App = () => {
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/todo/write" element={<TodoWrite />} />
         <Route path="/todo/list" element={<TodoList />} />
       </Route>
       <Route path="/mypage" element={<MypageLayout />}>

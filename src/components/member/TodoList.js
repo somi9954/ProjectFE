@@ -100,14 +100,23 @@ const TodoList = ({
     return `${year}년 ${month}월 ${day}일`;
   };
 
-  if (!Array.isArray(todoList) || todoList.length === 0) {
-    return <div>데이터가 없습니다</div>;
-  }
-
   // 생성일을 기준으로 정렬
-  const sortedTodoList = [...todoList].sort(
-    (a, b) => new Date(a.createdAt) - new Date(b.createdAt),
-  );
+  const sortedTodoList = todoList
+    ? todoList
+        .filter(
+          (todo) =>
+            todo &&
+            (typeof todo.done !== 'undefined' ||
+              todo.done !== null ||
+              todo.done === true ||
+              todo.done === false),
+        )
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    : [];
+
+  if (!sortedTodoList || sortedTodoList.length === 0) {
+    return <div>No data</div>;
+  }
 
   return (
     <ListBox>

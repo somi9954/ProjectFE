@@ -15,15 +15,18 @@ const TodoListContainer = () => {
   });
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
   useEffect(() => {
     const fetchTodoList = async () => {
       try {
         const response = await apiRequest('/todo/list', 'GET');
-        setTodoList(response.data.data); // 배열에 접근
-        console.log(response.data.data); // 데이터 확인
+        setTodoList(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error('할 일 목록을 불러오는 중 에러 발생:', error);
+      } finally {
+        setLoading(false); // 로딩 완료
       }
     };
     fetchTodoList();
@@ -59,8 +62,8 @@ const TodoListContainer = () => {
 
       requestWrite(form)
         .then((response) => {
-          console.log('새로운 To-do:', response.data); // 새로운 To-do 확인
           const newTodo = response.data;
+          console.log('새로운 To-do:', response.data); // 새로운 To-do 확인
           // 새로운 할일을 목록에 추가합니다.
           setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
           // 폼 초기화
@@ -84,21 +87,30 @@ const TodoListContainer = () => {
     );
   };
 
-  const onToggle = useCallback((clickedTodo) => {
-    console.log('clickedTodo:', clickedTodo); // 클릭된 할 일 객체 확인
-    setTodoList((prevTodoList) => {
-      console.log('prevTodoList:', prevTodoList); // 이전 할 일 목록 확인
-      return prevTodoList.map((todo) => {
-        if (clickedTodo && todo.gid === clickedTodo.gid) {
-          console.log('Updating todo:', todo); // 업데이트할 할 일 확인
+  const onToggle = useCallback(
+    (clickedTodo) => {
+      // 클릭된 할 일 객체 확인
+      console.log('클릭된 할 일 객체:', clickedTodo);
+
+      // 클릭된 할 일 객체의 done 속성을 토글하여 업데이트
+      const updatedTodoList = todoList.map((todo) => {
+        if (todo.gid === clickedTodo.gid) {
+          // 할 일 객체를 복제하여 done 속성을 반전시킴
           const updatedTodo = { ...todo, done: !todo.done };
-          console.log('Updated todo:', updatedTodo); // 업데이트된 할 일 확인
+          console.log('변경된 할 일 객체:', updatedTodo); // 변경된 할 일 객체 확인
           return updatedTodo;
         }
         return todo;
       });
-    });
-  }, []);
+
+      // 업데이트된 할 일 목록을 상태에 반영하여 업데이트
+      setTodoList(updatedTodoList);
+
+      // 업데이트된 할 일 목록 확인
+      console.log('업데이트된 할 일 목록:', updatedTodoList);
+    },
+    [todoList, setTodoList],
+  );
 
   return (
     <TodoList

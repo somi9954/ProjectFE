@@ -111,7 +111,7 @@ const TodoList = ({
               todo.done === true ||
               todo.done === false),
         )
-        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     : [];
 
   if (!sortedTodoList || sortedTodoList.length === 0) {

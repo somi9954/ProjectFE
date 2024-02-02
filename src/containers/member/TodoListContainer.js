@@ -17,23 +17,24 @@ const TodoListContainer = () => {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(true); // 로딩 상태 추가
 
+  const fetchTodoList = async () => {
+    try {
+      const response = await apiRequest('/todo/list', 'GET');
+      setTodoList(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.error('할 일 목록을 불러오는 중 에러 발생:', error);
+    } finally {
+      setLoading(false); // 로딩 완료
+    }
+  };
+
   useEffect(() => {
-    const fetchTodoList = async () => {
-      try {
-        const response = await apiRequest('/todo/list', 'GET');
-        setTodoList(response.data.data);
-        console.log(response.data.data);
-      } catch (error) {
-        console.error('할 일 목록을 불러오는 중 에러 발생:', error);
-      } finally {
-        setLoading(false); // 로딩 완료
-      }
-    };
     fetchTodoList();
   }, []); // 컴포넌트가 마운트될 때 한 번만 실행
 
   const handleFormSubmit = useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
 
       /**
@@ -60,20 +61,26 @@ const TodoListContainer = () => {
         return;
       }
 
-      requestWrite(form)
-        .then((response) => {
-          const newTodo = response.data;
-          console.log('새로운 To-do:', response.data); // 새로운 To-do 확인
-          // 새로운 할일을 목록에 추가합니다.
-          setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
-          // 폼 초기화
-          setForm({ content: '' });
-          // 오류 메시지 초기화
-          setErrors({});
-          // 할일 목록 페이지로 이동
-          navigate('/todo/list', { replace: true });
-        })
-        .catch((err) => setErrors(() => err.message));
+      try {
+        const response = await requestWrite(form);
+        const newTodo = response.data;
+        console.log('새로운 To-do:', response.data); // 새로운 To-do 확인
+
+        // 새로운 할일을 목록에 추가한 후에 목록을 다시 불러옵니다.
+        fetchTodoList();
+
+        // 폼 초기화
+        setForm({ content: '' });
+
+        // 오류 메시지 초기화
+        setErrors({});
+
+        // 할일 목록 페이지로 이동
+        navigate('/todo/list', { replace: true });
+      } catch (error) {
+        console.error('할 일 추가 중 에러 발생:', error);
+        setErrors(() => error.message);
+      }
     },
     [form, t, navigate],
   );

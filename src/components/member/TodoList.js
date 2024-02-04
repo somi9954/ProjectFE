@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 import { FaRegCalendarAlt } from 'react-icons/fa';
@@ -8,8 +8,9 @@ import { AddTodoButton } from '../commons/ButtonStyle';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 import { InputText } from '../commons/InputStyle';
+import { FiMinusCircle } from 'react-icons/fi';
 
-const { small, medium, big } = sizeNames;
+const { medium, big } = sizeNames;
 
 const ErrorMessages = loadable(() => import('../commons/ErrorMessages'));
 
@@ -59,6 +60,11 @@ const ListBox = styled.div`
     left: 0;
     transform: translateY(50%);
   }
+
+  .minusbtn {
+    margin-left: auto;
+    margin-right: 15px;
+  }
   .content {
     margin-left: 15px;
     font-size: ${medium};
@@ -80,6 +86,14 @@ const ListBox = styled.div`
   .btn {
     margin-left: 5px;
   }
+  .no_data {
+    background: #f54a39;
+    color: #fff;
+    display: inline-block;
+    padding: 3px 15px;
+    border-radius: 5px;
+    font-size: ${medium};
+  }
 `;
 
 const TodoList = ({
@@ -89,6 +103,7 @@ const TodoList = ({
   handleInputChange,
   form,
   onToggle,
+  handleDelete,
 }) => {
   const { t } = useTranslation();
 
@@ -99,24 +114,6 @@ const TodoList = ({
     const day = today.getDate();
     return `${year}년 ${month}월 ${day}일`;
   };
-
-  // 생성일을 기준으로 정렬
-  const sortedTodoList = todoList
-    ? todoList
-        .filter(
-          (todo) =>
-            todo &&
-            (typeof todo.done !== 'undefined' ||
-              todo.done !== null ||
-              todo.done === true ||
-              todo.done === false),
-        )
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-    : [];
-
-  if (!sortedTodoList || sortedTodoList.length === 0) {
-    return <div>No data</div>;
-  }
 
   return (
     <ListBox>
@@ -139,28 +136,45 @@ const TodoList = ({
             <ErrorMessages errors={errors} field="content" />
           </dd>
 
-          <AddTodoButton onClick={handleFormSubmit} className="btn">
+          <AddTodoButton
+            type="submit"
+            onClick={handleFormSubmit}
+            className="btn"
+          >
             <PiPlusBold />
             <p className="todo">할 일 추가하기</p>
           </AddTodoButton>
         </div>
         <ul>
           {/* 할일 목록을 순회하고 각 할일을 표시합니다. */}
-          {sortedTodoList.map((todo) => (
-            <li
-              key={todo.gid}
-              onClick={() => onToggle(todo)}
-              className={todo.done ? 'checked' : ''}
-            >
-              {/* 완료된 할일인지 여부에 따라 아이콘을 표시합니다. */}
-              {todo.done ? <GrCheckboxSelected /> : <GrCheckbox />}
-              <span className="content">{todo.content}</span>
-            </li>
-          ))}
+          {todoList && todoList.length > 0 ? (
+            todoList.map((todo) => (
+              <li
+                key={todo.gid}
+                onClick={() => onToggle(todo)} // 클릭 이벤트 연결
+                className={todo.done ? 'checked' : ''}
+              >
+                {/* 완료된 할일인지 여부에 따라 아이콘을 표시합니다. */}
+                {todo.done ? <GrCheckboxSelected /> : <GrCheckbox />}
+                <span className="content">{todo.content}</span>
+                <FiMinusCircle
+                  className="minusbtn"
+                  onClick={async (e) => {
+                    console.log('handleDelete 호출 전:', todo.seq);
+                    await handleDelete(todo);
+                  }}
+                />
+              </li>
+            ))
+          ) : (
+            <div key="no_data" className="no_data">
+              할 일을 추가하세요
+            </div>
+          )}
         </ul>
       </div>
     </ListBox>
   );
 };
 
-export default TodoList;
+export default React.memo(TodoList);

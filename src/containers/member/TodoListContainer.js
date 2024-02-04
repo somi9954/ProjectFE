@@ -5,6 +5,7 @@ import requestWrite from '../../api/member/TodoWrite';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { produce } from 'immer';
+import requestDelete from '../../api/member/todoDelete';
 
 const TodoListContainer = () => {
   const { t } = useTranslation();
@@ -62,15 +63,24 @@ const TodoListContainer = () => {
       }
 
       try {
-        const response = await requestWrite(form);
-        const newTodo = response.data;
-        console.log('새로운 To-do:', response.data); // 새로운 To-do 확인
+        const newTodo = {
+          ...form,
+          done: false, // 새로운 할 일을 추가할 때 done 속성을 명시적으로 false로 설정
+        };
+
+        const response = await requestWrite(newTodo);
 
         // 새로운 할일을 목록에 추가한 후에 목록을 다시 불러옵니다.
         fetchTodoList();
 
+        // 새로운 할 일을 기존의 할 일 목록에 추가하기 위해 업데이트
+        setTodoList((prevTodoList) => [...prevTodoList, newTodo]);
+
         // 폼 초기화
-        setForm({ content: '' });
+        setForm((prevForm) => ({
+          ...prevForm,
+          content: '',
+        }));
 
         // 오류 메시지 초기화
         setErrors({});
@@ -96,27 +106,54 @@ const TodoListContainer = () => {
 
   const onToggle = useCallback(
     (clickedTodo) => {
-      // 클릭된 할 일 객체 확인
-      console.log('클릭된 할 일 객체:', clickedTodo);
-
-      // 클릭된 할 일 객체의 done 속성을 토글하여 업데이트
+      // 클릭된 할 일 객체만 수정하고 나머지는 그대로 유지하는 새로운 배열 생성
       const updatedTodoList = todoList.map((todo) => {
         if (todo.gid === clickedTodo.gid) {
-          // 할 일 객체를 복제하여 done 속성을 반전시킴
           const updatedTodo = { ...todo, done: !todo.done };
-          console.log('변경된 할 일 객체:', updatedTodo); // 변경된 할 일 객체 확인
+          console.log('Updated todo:', updatedTodo);
+          // 클릭된 할 일 객체의 done 속성 변경 없이 그대로 유지
           return updatedTodo;
         }
         return todo;
       });
 
-      // 업데이트된 할 일 목록을 상태에 반영하여 업데이트
+      // 수정된 할 일 목록을 상태에 반영하여 업데이트
       setTodoList(updatedTodoList);
-
-      // 업데이트된 할 일 목록 확인
-      console.log('업데이트된 할 일 목록:', updatedTodoList);
     },
     [todoList, setTodoList],
+  );
+
+  const handleDelete = useCallback(
+    (todoToDelete) => {
+      try {
+        console.log('할 일 삭제 요청:', todoToDelete);
+
+        if (
+          !todoToDelete.seq ||
+          typeof todoToDelete.seq !== 'number' ||
+          isNaN(todoToDelete.seq)
+        ) {
+          console.error('유효하지 않은 할 일 식별자입니다:', todoToDelete);
+          return;
+        }
+
+        requestDelete(todoToDelete.seq)
+          .then(() => {
+            console.log('할 일 삭제 성공');
+            setTodoList((prevTodoList) =>
+              prevTodoList.filter((todo) => todo.seq !== todoToDelete.seq),
+            );
+          })
+          .catch((error) => {
+            console.error('할 일 삭제 중 에러 발생:', error);
+            console.error('에러가 발생한 위치:', error.stack);
+            console.error('에러 메시지:', error.message);
+          });
+      } catch (error) {
+        console.error('할 일 삭제 중 에러 발생:', error);
+      }
+    },
+    [setTodoList, requestDelete],
   );
 
   return (
@@ -127,6 +164,7 @@ const TodoListContainer = () => {
       handleInputChange={handleInputChange}
       form={form}
       onToggle={onToggle}
+      handleDelete={handleDelete}
     />
   );
 };

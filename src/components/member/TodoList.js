@@ -160,7 +160,7 @@ const TodoList = ({
                 <FiMinusCircle
                   className="minusbtn"
                   onClick={async (e) => {
-                    console.log('handleDelete 호출 전:', todo.seq);
+                    console.log('할 일 삭제 호출 전:', todo.seq);
                     await handleDelete(todo);
                   }}
                 />

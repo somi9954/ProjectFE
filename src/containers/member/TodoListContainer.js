@@ -81,12 +81,6 @@ const TodoListContainer = () => {
           ...prevForm,
           content: '',
         }));
-
-        // 오류 메시지 초기화
-        setErrors({});
-
-        // 할일 목록 페이지로 이동
-        navigate('/todo/list', { replace: true });
       } catch (error) {
         console.error('할 일 추가 중 에러 발생:', error);
         setErrors(() => error.message);
@@ -133,7 +127,7 @@ const TodoListContainer = () => {
           typeof todoToDelete.seq !== 'number' ||
           isNaN(todoToDelete.seq)
         ) {
-          console.error('유효하지 않은 할 일 식별자입니다:', todoToDelete);
+          console.error('잘못된 할 일 식별자:', todoToDelete);
           return;
         }
 
@@ -145,12 +139,12 @@ const TodoListContainer = () => {
             );
           })
           .catch((error) => {
-            console.error('할 일 삭제 중 에러 발생:', error);
-            console.error('에러가 발생한 위치:', error.stack);
-            console.error('에러 메시지:', error.message);
+            console.error('할 일 삭제 중 오류 발생:', error);
+            console.error('오류 위치:', error.stack);
+            console.error('오류 메시지:', error.message);
           });
       } catch (error) {
-        console.error('할 일 삭제 중 에러 발생:', error);
+        console.error('할 일 삭제 중 오류 발생:', error);
       }
     },
     [setTodoList, requestDelete],

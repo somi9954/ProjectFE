@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import sizeNames from '../../styles/sizes';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
+import { SubTitle } from '../../components/commons/TitleStyle';
 
 const { medium, big } = sizeNames;
 
@@ -115,7 +116,10 @@ const Main = () => {
           </ListBox>
         </OuterBox>
       ) : (
-        <LoginContainer />
+        <SubTitle $align="center">
+          {t('로그인')}
+          <LoginContainer />
+        </SubTitle>
       )}
     </div>
   );

@@ -35,7 +35,7 @@ const App = () => {
         <Route path="/join" element={<Join />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
-        <Route path="/todo/list" element={<TodoList />} />
+        <Route path="/todo/list" element={<Main />} />
       </Route>
       <Route path="/mypage" element={<MypageLayout />}>
         <Route index element={<Mypage />} />

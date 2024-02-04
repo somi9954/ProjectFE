@@ -17,7 +17,7 @@ export const SubTitle = styled.h2`
   font-size: ${big};
   margin: 0;
   padding: 0;
-  text-align: ${({ align }) => align || 'left'};
+  text-align: ${({ align }) => align || 'center'};
   color: ${({ color }) => (color ? colorNames[color] : '#000')};
   ${({ border_width, color }) =>
     border_width &&

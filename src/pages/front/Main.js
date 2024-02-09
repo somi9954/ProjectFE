@@ -116,10 +116,10 @@ const Main = () => {
           </ListBox>
         </OuterBox>
       ) : (
-        <SubTitle $align="center">
-          {t('로그인')}
+        <div>
+          <SubTitle $align="center">{t('로그인')}</SubTitle>
           <LoginContainer />
-        </SubTitle>
+        </div>
       )}
     </div>
   );

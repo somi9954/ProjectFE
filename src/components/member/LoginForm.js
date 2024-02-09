@@ -9,6 +9,7 @@ import { IoMdLock } from 'react-icons/io';
 import { IoKey } from 'react-icons/io5';
 import { FaUserPlus } from 'react-icons/fa';
 import loadable from '@loadable/component';
+import KakaoLogin from './kakaoLogin';
 
 const Message = loadable(() => import('../commons/Message'));
 
@@ -22,6 +23,21 @@ const LoginText = styled(InputText)`
 const FormBox = styled.form`
   width: 300px;
   padding-bottom: 80px;
+
+  .mt5 {
+    margin-bottom: 10px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 0.5px;
+      background-color: #a8a8a8;
+    }
+  }
 
   .links {
     border: 1px solid #a8a8a8;
@@ -78,6 +94,10 @@ const LoginForm = ({ onSubmit, onChange, errors }) => {
       </BigButton>
 
       {errors.global && <Message>{errors.global}</Message>}
+
+      <div className="kakao">
+        <KakaoLogin />
+      </div>
 
       <div className="links">
         <Link to="/find_id">

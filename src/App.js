@@ -14,7 +14,7 @@ import MypageLayout from './layouts/front/MypageLayout';
 import Mypage from './pages/front/member/Main';
 import SaveInfo from './pages/front/member/Saveinfo';
 import Withdrawal from './pages/front/member/Withdrawal';
-import TodoList from './pages/front/member/TodoList';
+import KakaoRedirect from './pages/front/member/KakaoRedirect';
 
 /* 서버 페이지 */
 import AdminMain from './pages/admin/Main';
@@ -36,6 +36,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/todo/list" element={<Main />} />
+        <Route path="/member/kakao" element={<KakaoRedirect />} />
       </Route>
       <Route path="/mypage" element={<MypageLayout />}>
         <Route index element={<Mypage />} />

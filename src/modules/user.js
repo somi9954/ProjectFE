@@ -21,9 +21,9 @@ const UserProvider = ({ children }) => {
 
     getUserInfo()
       .then((userInfo) => {
-        setUserInfo(() => userInfo);
+        setUserInfo(userInfo); // 이전 상태 대신 새로운 상태로 설정
         setIsLogin(true); // 로그인 여부
-        setIsAdmin(userInfo.type === 'ADMIN'); // 관리자 여부
+        setIsAdmin(userInfo && userInfo.type === 'ADMIN'); // 관리자 여부
       })
       .catch((err) => console.error(err));
   }, [isLogin]);

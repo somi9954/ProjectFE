@@ -7,36 +7,66 @@ const auth_code_path = `https://kauth.kakao.com/oauth/authorize`;
 
 const access_token_url = 'https://kauth.kakao.com/oauth/token';
 
+const client_secret = 'F3uvmeXmF8Sh2uBM2kqVZi8imEV6saWk';
+
 export const getKakaoLoginLink = () => {
   const kakaoURL = `${auth_code_path}?response_type=code&client_id=${rest_api_key}&redirect_uri=${redirect_uri}`;
 
   return kakaoURL;
 };
 
+// POST 요청 오류 처리
 export const getAccessToken = async (authCode) => {
-  const params = new URLSearchParams();
-  params.append('grant_type', 'authorization_code');
-  params.append('client_id', rest_api_key);
-  params.append('redirect_uri', redirect_uri);
-  params.append('code', authCode);
+  try {
+    const params = {
+      grant_type: 'authorization_code',
+      client_id: rest_api_key,
+      client_secret: client_secret,
+      redirect_uri: redirect_uri,
+      code: authCode,
+    };
 
-  const header = {
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-  };
+    const formData = new URLSearchParams();
+    for (const key in params) {
+      formData.append(key, params[key]);
+    }
 
-  const res = await axios.post(access_token_url, params.toString(), header);
+    const res = await axios.post(access_token_url, formData.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    });
 
-  const accessToken = res.data.access_token;
+    const accessToken = res.data.access_token;
 
-  return accessToken;
+    return accessToken;
+  } catch (error) {
+    console.error('액세스 토큰을 가져오는 중에 오류가 발생했습니다:', error);
+    throw error;
+  }
 };
 
+// GET 요청 오류 처리
 export const getMemberWithAccessToken = async (accessToken) => {
-  const REACT_APP = process.env.REACT_APP_API_URL;
-  const res = await axios.get(
-    `${REACT_APP}/api/member/kakao?accessToken=${accessToken}`,
-  );
-  return res.data;
+  try {
+    const params = {
+      accessToken: accessToken,
+    };
+
+    const REACT_APP = process.env.REACT_APP_API_URL;
+    const res = await axios.get(`${REACT_APP}/member/kakao`, {
+      params: params,
+      headers: {
+        Authorization: `'application/x-www-form-urlencoded ${accessToken}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    console.error(
+      '액세스 토큰으로 멤버 정보를 가져오는 중에 오류가 발생했습니다:',
+      error,
+    );
+    throw error;
+  }
 };

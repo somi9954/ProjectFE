@@ -35,15 +35,6 @@ const FormBox = styled.form`
     margin-bottom: 15px;
   }
 
-  .agree_terms {
-    font-size: ${medium};
-    cursor: pointer;
-    width: 100%;
-    height: 6.25em;
-    resize: none;
-    border: 1px solid #d5d5d5;
-  }
-
   .table-cols dt {
     width: 180px;
     padding: 10px 20px;
